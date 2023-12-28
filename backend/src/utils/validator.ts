@@ -10,3 +10,12 @@ export const validatorRegisterArray = () => {
       .escape(),
   ];
 };
+
+export const validatorAuthLogin = () => {
+  return [
+    check("email", "Email is required. ").isEmail().escape(),
+    check("password", "Password with 6 or more character required. ")
+      .isLength({ min: 6 })
+      .escape(),
+  ];
+};
