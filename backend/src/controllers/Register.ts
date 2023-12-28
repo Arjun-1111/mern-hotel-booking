@@ -1,11 +1,17 @@
 import { Request, Response } from "express";
 import User from "../models/User";
 import jwt from "jsonwebtoken";
+import { validationResult } from "express-validator";
 
 export const Register = async (req: Request, res: Response) => {
   try {
-    const { email } = req.body;
-    let user = await User.findOne({ email });
+    const errors = validationResult(req);
+
+    // if error found
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ code: 0, message: errors.array() });
+    }
+    let user = await User.findOne({ email: req.body.email });
     if (user) {
       return res.status(400).json({ code: 0, message: "user already exists" });
     }
