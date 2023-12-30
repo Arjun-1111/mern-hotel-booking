@@ -8,8 +8,8 @@ const Footer = () => {
           <Link to="/">Booking.com</Link>
         </p>
         <span className=" text-white gap-4 flex items-center ">
-          <p className=" cursor-pointer ">Privacy policy</p>
-          <p className=" cursor-pointer ">Terms of service</p>
+          <p className=" cursor-pointer font-bold">Privacy policy</p>
+          <p className=" cursor-pointer font-bold">Terms of service</p>
         </span>
       </div>
     </div>

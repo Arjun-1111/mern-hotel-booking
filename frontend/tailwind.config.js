@@ -5,7 +5,10 @@ module.exports = {
   theme: {
     extend: {},
     container: {
-      padding: "3rem",
+      padding: {
+        DEFAULT: "1rem",
+        md: "5rem",
+      },
     },
   },
   plugins: [],
