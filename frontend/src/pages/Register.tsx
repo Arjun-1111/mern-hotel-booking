@@ -2,8 +2,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import WrapperRL from "../utils/WrapperRL";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { useState } from "react";
+import { useMutation } from "react-query";
+import * as apiClient from "../api/client";
 
-type RegisterFormData = {
+export type RegisterFormData = {
   firstName: string;
   lastName: string;
   email: string;
@@ -22,8 +24,22 @@ const Register = () => {
     formState: { errors },
   } = useForm<RegisterFormData>();
 
+  // react Query
+  const mutations = useMutation(apiClient.register, {
+    onSuccess: () => {
+      console.log("register successfull");
+    },
+    onError: (error: Error) => {
+      console.log(error?.message);
+    },
+  });
+
   //   submit handler ---inspired by react hook type declartion
-  const onSubmit: SubmitHandler<RegisterFormData> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
+    console.log(data);
+
+    mutations.mutate(data);
+  };
 
   return (
     <WrapperRL>
