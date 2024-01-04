@@ -4,6 +4,7 @@ import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import * as apiClient from "../api/client";
+import { useAppContext } from "../context/AppContext";
 
 export type RegisterFormData = {
   firstName: string;
@@ -17,6 +18,9 @@ const Register = () => {
   // for password hiding and showing
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  // context
+  const { showToast } = useAppContext();
+
   const {
     register,
     watch,
@@ -27,16 +31,16 @@ const Register = () => {
   // react Query
   const mutations = useMutation(apiClient.register, {
     onSuccess: () => {
-      console.log("register successfull");
+      showToast({ message: "Register Successfull", type: "SUCCESS" });
     },
     onError: (error: Error) => {
-      console.log(error?.message);
+      showToast({ message: error?.message, type: "ERROR" });
     },
   });
 
   //   submit handler ---inspired by react hook type declartion
   const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
-    console.log(data);
+    // console.log(data);
 
     mutations.mutate(data);
   };
