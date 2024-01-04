@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useMutation } from "react-query";
 import * as apiClient from "../api/client";
 import { useAppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 export type RegisterFormData = {
   firstName: string;
@@ -15,6 +16,8 @@ export type RegisterFormData = {
 };
 
 const Register = () => {
+  const navigate = useNavigate();
+
   // for password hiding and showing
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -32,6 +35,7 @@ const Register = () => {
   const mutations = useMutation(apiClient.register, {
     onSuccess: () => {
       showToast({ message: "Register Successfull", type: "SUCCESS" });
+      navigate("/");
     },
     onError: (error: Error) => {
       showToast({ message: error?.message, type: "ERROR" });
