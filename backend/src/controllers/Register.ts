@@ -37,7 +37,9 @@ export const Register = async (req: Request, res: Response) => {
       maxAge: 86400000, //1day same as jwt expiry
     });
 
-    res.sendStatus(201);
+    res.status(201).json({
+      message: "User regeistered OK",
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({
