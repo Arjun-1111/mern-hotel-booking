@@ -4,7 +4,7 @@ import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import * as apiClient from "../api/client";
-import { useAppContext } from "../context/AppContext";
+import useAppContext from "../hooks/useAppContext";
 import { useNavigate } from "react-router-dom";
 
 export type RegisterFormData = {

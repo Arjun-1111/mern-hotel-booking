@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import morgan from "morgan";
 import "dotenv/config";
+import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import UserRoute from "./routes/User";
 import UserAuth from "./routes/auth";
@@ -15,7 +16,7 @@ app.use(
   })
 );
 app.use(morgan("tiny"));
-
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

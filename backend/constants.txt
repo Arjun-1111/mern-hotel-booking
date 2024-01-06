@@ -1,0 +1,7 @@
+    //[
+      //     code 1: executed properly,
+      //     code 2: wrong credentials,
+      //     code 3: unauthorized,
+      //     code 0 : already Exists (duplicate),
+      //     code -1 : failed
+      // ]

@@ -1,16 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Toast from "../components/Toast";
+import { useQuery } from "react-query";
+import * as apiClient from "../api/client";
 
 type ToastMessage = {
   message: string;
   type: "SUCCESS" | "ERROR";
 };
 
-type AppContext = {
+export type AppContextType = {
   showToast: (toastMessage: ToastMessage) => void;
+  isLoggedIn: boolean;
 };
 
-const AppContext = React.createContext<AppContext | undefined>(undefined);
+export const AppContext = React.createContext<AppContextType | undefined>(
+  undefined
+);
 
 export const AppContextProvider = ({
   children,
@@ -18,9 +23,16 @@ export const AppContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
+  const { isError } = useQuery("validate", apiClient.validateToken, {
+    retry: false,
+  });
+
   return (
     <AppContext.Provider
-      value={{ showToast: (toastMessage) => setToast(toastMessage) }}
+      value={{
+        showToast: (toastMessage) => setToast(toastMessage),
+        isLoggedIn: !isError,
+      }}
     >
       {/* check if there is a toast sate if toast is there show Toast component else hide it using setToast to undefined */}
       {toast && (
@@ -33,11 +45,4 @@ export const AppContextProvider = ({
       {children}
     </AppContext.Provider>
   );
-};
-
-// hook for easy context access
-
-export const useAppContext = () => {
-  const context = useContext(AppContext);
-  return context as AppContext;
 };
