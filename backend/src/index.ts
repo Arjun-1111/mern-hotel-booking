@@ -7,7 +7,13 @@ import UserRoute from "./routes/User";
 import UserAuth from "./routes/auth";
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    // only accepts request from this url
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 app.use(morgan("tiny"));
 
 app.use(express.json());
